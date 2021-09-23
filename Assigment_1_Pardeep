@@ -1,0 +1,64 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+product_list = []
+
+
+Product_Name = 'sunsilk'
+
+url = 'https://bagallery.com/search?type=product&q='+Product_Name+''
+r = requests.get(url)
+r_session = requests.session()
+r = r_session.get(url=url)
+#print(r)
+
+soup = BeautifulSoup(r.text,'html.parser')
+
+#print(soup)
+#li.product h2.product-name a
+
+
+product_name_css = 'div.grid-item a.product-title span'
+product_name = soup.select(product_name_css)
+
+for i in product_name:
+    #print(i.text.strip())
+    product_list.append(i.text.strip())
+
+
+product_list
+
+
+
+#div.grid-item div.product-bottom div.price-box
+
+
+product_name_css = 'div.grid-item div.product-bottom div.price-box'
+product_name = soup.select(product_name_css)
+product_name[1].text
+
+
+a = BeautifulSoup(product_name[11].text,'html.parser')
+b =  len(a.text.strip().split('\n'))
+
+
+
+if b == 2:
+    a.text.strip().split('\n')[1]
+else:
+    a.text.strip().split('\n')[0]
+
+# for  i in product_name[0]:
+#     print(pd.read_html(i))
+    
+
+
+# for i in product_name:
+#     #print(i.text.strip())
+#     product_list.append(i.text.strip())
+
+
+
+
+
